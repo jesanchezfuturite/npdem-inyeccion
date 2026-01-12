@@ -1,0 +1,47 @@
+12 Columnas
+
+- Ancho lienzo: 1500 px
+- Contenedor: 1250 px
+- Columnas: 82 px
+
+
+---
+
+Textos.
+
+- Tipografía: Inter (regular, bold)
+https://fonts.google.com/specimen/Inter
+
+- Títulos h1: 56px (3.5rem) 
+- Títulos h2: 32px (2rem)
+- Títulos h3: 24px (1.5rem)
+
+- Texto body: 20px (1.25rem)
+- Texto body chico: 15px (1rem)
+- Texto botones : 20px (1.25rem)
+
+
+----
+
+Colores - Valores Hex
+
+- Texto
+
+Verde 01: 004D40 
+Verde 02: 1DE9B6
+Negro: 212529
+Gris: ced4da
+Blanco: fffff
+
+
+- Formas y líneas
+
+Verde 01: 004D40 
+Verde 02: 1DE9B6
+Gris: f8f9fa
+Blanco: fffff
+
+
+----
+
+Hover botones: texto #ffffff / fondo #00362D
