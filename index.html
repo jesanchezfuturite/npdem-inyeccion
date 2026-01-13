@@ -13,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
@@ -124,16 +126,6 @@
             /* Offset for fixed navbar */
         }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            //background: linear-gradient(135deg, rgba(0, 77, 64, 0.9) 0%, rgba(0, 77, 64, 0.7) 100%);
-            z-index: 1;
-        }
-
         .hero-content {
             position: relative;
             z-index: 2;
@@ -192,24 +184,23 @@
         }
 
         /* Why Choose Us */
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-        }
 
-        .benefits-list li {
-            margin-bottom: 1.25rem;
+        .swiper-clientes {
+            padding: 20px 0 50px;
+        }
+        .swiper-slide {
             display: flex;
+            justify-content: center;
             align-items: center;
-            font-size: 1.1rem;
-            font-weight: 500;
         }
-
-        .check-icon {
-            color: var(--accent-color);
-            margin-right: 1rem;
-            font-size: 1.4rem;
-            flex-shrink: 0;
+        .client-logo {
+            max-width: 100%;  /* Ajusta según el tamaño de tus logos */
+            filter: grayscale(100%); /* Opcional: logos en gris */
+            transition: 0.3s;
+            height: auto; 
+        }
+        .client-logo:hover {
+            filter: grayscale(0%);
         }
 
         /* Materials */
@@ -321,7 +312,6 @@
 
     <!-- Hero Section -->
     <header class="hero-section">
-        <div class="hero-overlay"></div>
         <div class="container hero-content">
             <div class="row">
                 <div class="col-lg-8">
@@ -350,7 +340,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="feature-icon-wrapper">
-                            <img src="img/icono-01.svg" alt="" width="43px">
+                            <img src="img/icono-01.webp" alt="" width="43px">
                         </div>
                         <h5>Flexibilidad en materiales</h5>
                         <p class="text-muted small">Trabajamos con materiales vírgenes o reciclables sin comprometer la
@@ -362,7 +352,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="feature-icon-wrapper">
-                            <img src="img/icono-02.svg" alt="" width="43px">
+                            <img src="img/icono-02.webp" alt="" width="43px">
                         </div>
                         <h5>Calidad Certificada</h5>
                         <p class="text-muted small">Operamos bajo la certificación ISO 9001:2015, garantizando procesos
@@ -374,7 +364,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="feature-icon-wrapper">
-                            <img src="img/icono-03.svg" alt="" width="43px">
+                            <img src="img/icono-03.webp" alt="" width="43px">
                         </div>
                         <h5>Comercio Exterior</h5>
                         <p class="text-muted small">Programa IMMEX para importación y exportación, simplificando
@@ -386,7 +376,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="feature-card">
                         <div class="feature-icon-wrapper">
-                            <img src="img/icono-04.svg" alt="" width="43px">
+                            <img src="img/icono-04.webp" alt="" width="43px">
                         </div>
                         <h5>Fabricación de Moldes</h5>
                         <p class="text-muted small">Taller interno especializado para la fabricación y mantenimiento de
@@ -410,10 +400,10 @@
                     <p class="text-muted mb-4">Más que un proveedor, somos tu aliado estratégico en manufactura
                         plástica.</p>
                     <ul class="benefits-list">
-                        <li><img src="img/icono-05.svg" alt="" width="20px" class="check-icon"> Asesoría técnica especializada.</li>
-                        <li><img src="img/icono-05.svg" alt="" width="20px" class="check-icon"> Validación de diseño mediante impresión 3D.</li>
-                        <li><img src="img/icono-05.svg" alt="" width="20px" class="check-icon"> Capacidad para proyectos de alto volumen. </li>
-                        <li><img src="img/icono-05.svg" alt="" width="20px" class="check-icon"> Cotización hasta en 24 horas.</li>
+                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Asesoría técnica especializada.</li>
+                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Validación de diseño mediante impresión 3D.</li>
+                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Capacidad para proyectos de alto volumen. </li>
+                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Cotización hasta en 24 horas.</li>
                     </ul>
                 </div>
             </div>
@@ -439,25 +429,35 @@
         </div>
     </section>
 
-    <!-- Clientes Section -->
     <section class="section-padding">
         <div class="container">
             <div class="text-center mb-5">
                 <h2>Ellos confían en nosotros</h2>
             </div>
-            <div class="row g-4 justify-content-center">
-                <div class="col-6 col-md-3">
-                    <img src="img/logo-clientes-01.webp" alt="Cliente 1" class="client-logo">
+            
+            <!-- Swiper Container -->
+            <div class="swiper swiper-clientes">
+                <div class="swiper-wrapper">
+                    <!-- Logos -->
+                    <div class="swiper-slide"><img src="img/logo-clientes-01.webp" alt="Cliente 1" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-02.webp" alt="Cliente 2" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-03.webp" alt="Cliente 3" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-04.webp" alt="Cliente 4" class="client-logo"></div>
+
+                    <div class="swiper-slide"><img src="img/logo-clientes-05.webp" alt="Cliente 5" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-07.webp" alt="Cliente 7" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-08.webp" alt="Cliente 8" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-09.webp" alt="Cliente 9" class="client-logo"></div>
+
+                    <div class="swiper-slide"><img src="img/logo-clientes-10.webp" alt="Cliente 10" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-11.webp" alt="Cliente 11" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-12.webp" alt="Cliente 12" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-13.webp" alt="Cliente 13" class="client-logo"></div>
+                    <div class="swiper-slide"><img src="img/logo-clientes-14.webp" alt="Cliente 14" class="client-logo"></div>
+                    <!-- Agrega aquí más logos libremente -->
                 </div>
-                <div class="col-6 col-md-3">
-                    <img src="img/logo-clientes-02.webp" alt="Cliente 2" class="client-logo">
-                </div>
-                <div class="col-6 col-md-3">
-                    <img src="img/logo-clientes-03.webp" alt="Cliente 3" class="client-logo">
-                </div>
-                <div class="col-6 col-md-3">
-                    <img src="img/logo-clientes-04.webp" alt="Cliente 4" class="client-logo">
-                </div>
+                <!-- Paginación opcional -->
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
@@ -522,6 +522,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -573,6 +575,24 @@
                     }, 2000);
                 }
             });
+        });
+
+        const swiper = new Swiper('.swiper-clientes', {
+            slidesPerView: 2,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 },
+            },
         });
     </script>
 </body>
