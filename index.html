@@ -542,6 +542,7 @@
             $('#contactForm').on('submit', function (e) {
                 e.preventDefault();
                 let valid = true;
+                console.log(data_utm);
 
                 // Limpiar errores previos
                 $('.form-control').removeClass('is-invalid');
@@ -563,18 +564,81 @@
                 }
 
                 if (valid) {
+
+                    var nombre = $("input[name='nombre']", this).val();
+                    var correo = $("input[name='correo']", this).val();
+                    var telefono = $("input[name='telefono']", this).val();
+                    var mensaje = $("textarea[name='mensaje']", this).val();
+
+                    var data = {};
+                    data.nombre = nombre;
+                    data.correo = correo;
+                    data.telefono = telefono;
+                    data.mensaje = mensaje;
+
+                    data.utm_id = data_utm.utm_id ? data_utm.utm_id : "";
+                    data.utm_campaign = data_utm.utm_campaign ? data_utm.utm_campaign : "";
+                    data.utm_source = data_utm.utm_source ? data_utm.utm_source : "";
+                    data.utm_medium = data_utm.utm_medium ? data_utm.utm_medium : "";
+                    data.utm_content = data_utm.utm_content ? data_utm.utm_content : "";
+                    data.utm_term = data_utm.utm_term ? data_utm.utm_term : "";
+
+                    data.api_key = "Q2xpZW50ZUlEOjoxMg==";
+                    data.to = ["daniel.quiroga@futurite.com"];
+                    data.origen = "npdem-inyeccion";
+
                     const btn = $('#btnSubmit');
                     const originalText = btn.text();
 
                     // Simulación de envío
                     btn.prop('disabled', true).text('Enviando...');
 
-                    setTimeout(function () {
+                    $.ajax({
+                        method: "POST",
+                        url: "https://ongoing.futurite.info/api/leads/add",
+                        data: data,
+                        error: function (e) {
+                            console.log(e);
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            if (result.success) {
+                                $('#contactForm').each(function () { this.reset(); });
+                                //window.open('gracias.html', '_self');
+                            } else {
+                                alert('Ha ocurrido un error al enviar la forma de contacto, intenta más tarde');
+                            }
+                        }
+                    })
+                    
+                    /*setTimeout(function () {
                         // Redirección
                         window.location.href = 'gracias-inyeccion.html';
-                    }, 2000);
+                    }, 2000);*/
                 }
             });
+        });
+
+        var data_utm = {};
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // 1. Obtener los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // 2. Lista de UTMs a buscar
+            const utms = ['utm_id', 'utm_campaign', 'utm_source', 'utm_medium', 'utm_content', 'utm_term'];
+
+            // 3. Asignar cada UTM encontrada a su campo correspondiente
+            utms.forEach(param => {
+                const value = urlParams.get(param);
+                if (value) {
+                    /*const input = document.getElementById(param);
+                    if (input) {
+                        input.value = value;
+                    }*/ 
+                    data_utm [param] = value;
+                }
+            });
+            console.log(data_utm);
         });
 
         const swiper = new Swiper('.swiper-clientes', {
