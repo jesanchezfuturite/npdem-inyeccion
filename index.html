@@ -169,6 +169,42 @@
             max-width: 700px;
         }
 
+        /* --- Cards (Types of Profiles) --- */
+        .feature-card2 {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .feature-card2:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card2 img {
+            height: 300px;
+            object-fit: cover;
+            width: 100%;
+            background-color: #00bfa5;
+            display: inline-block;
+        }
+
+        .feature-card2 .card-body {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .feature-card2 h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
         /* Feature Cards */
         .feature-card {
             background: white;
@@ -199,6 +235,7 @@
             color: var(--primary-color);
             font-size: 1.8rem;
         }
+        
 
         /* Why Choose Us */
 
@@ -218,6 +255,15 @@
         }
         .client-logo:hover {
             filter: grayscale(0%);
+        }
+
+        .benefits-list li {
+            list-style: none;
+        }
+
+        .check-icon {
+            width: 20px;
+            margin-right: 10px;
         }
 
         /* Materials */
@@ -348,6 +394,43 @@
         </div>
     </header>
 
+    <!-- Types of Profiles Section -->
+    <section id="profiles" class="section-padding bg-light-soft">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-primary-custom fw-bold">Nuestras Capacidades</h2>
+                <div style="width: 50px; height: 3px; background: var(--accent-color); margin: 15px auto;"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card2">
+                        <img src="img/capacidades-img-01.webp" alt="Perfiles Rígidos">
+                        <div class="card-body">
+                            <h3>Perfiles Rígidos</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card2">
+                        <img src="img/capacidades-img-02.webp" alt="Perfiles Flexibles">
+                        <div class="card-body">
+                            <h3>Perfiles Flexibles</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card2">
+                        <img src="img/capacidades-img-03.webp" alt="Coextrusión">
+                        <div class="card-body">
+                            <h3>Coextrusión</h3>
+                            <p class="text-muted small mt-2">Combinación de materiales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Ventajas Section -->
     <section id="ventajas" class="section-padding bg-light-custom">
         <div class="container">
@@ -421,10 +504,10 @@
                     <p class="text-muted mb-4">Más que un proveedor, somos tu aliado estratégico en manufactura
                         plástica.</p>
                     <ul class="benefits-list">
-                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Asesoría técnica especializada.</li>
-                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Validación de diseño mediante impresión 3D.</li>
-                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Capacidad para proyectos de alto volumen. </li>
-                        <li><img src="img/icono-05.webp" alt="" width="20px" class="check-icon"> Cotización hasta en 24 horas.</li>
+                        <li><img src="img/icono-05.webp" alt="" class="check-icon"> Asesoría técnica especializada.</li>
+                        <li><img src="img/icono-05.webp" alt="" class="check-icon"> Validación de diseño mediante impresión 3D.</li>
+                        <li><img src="img/icono-05.webp" alt="" class="check-icon"> Capacidad para proyectos de alto volumen. </li>
+                        <li><img src="img/icono-05.webp" alt="" class="check-icon"> Cotización hasta en 24 horas.</li>
                     </ul>
                 </div>
             </div>
@@ -436,16 +519,11 @@
         <div class="container text-center">
             <h2 class="mb-5">Materiales</h2>
             <div class="d-flex flex-wrap justify-content-center">
-                <span class="material-badge">Polietileno de Baja Densidad</span>
-                <span class="material-badge">Polietileno de Alta Densidad</span>
-                <span class="material-badge">Polipropileno</span>
-                <span class="material-badge">PVC Rígido</span>
-                <span class="material-badge">PVC Flexible</span>
-                <span class="material-badge">Hule Termoplástico</span>
-                <span class="material-badge">Uretano Termoplástico</span>
+                <span class="material-badge">Inyección Materiales</span>
                 <span class="material-badge">ABS</span>
-                <span class="material-badge">Policarbonato</span>
-                <span class="material-badge">Muchos más...</span>
+                <span class="material-badge">Polipropileno</span>
+                <span class="material-badge">Polietileno</span>                
+                <span class="material-badge">NYLON</span>
             </div>
         </div>
     </section>
