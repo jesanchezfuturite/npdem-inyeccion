@@ -573,24 +573,24 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="nombre" class="form-label">Nombre y Apellido *</label>
-                                        <input type="text" class="form-control" id="nombre" required>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="email" class="form-label">Correo electrónico *</label>
-                                        <input type="email" class="form-control" id="email" required>
+                                        <input type="email" class="form-control" id="correo" name="correo" required>
                                         <div class="invalid-feedback">Por favor ingrese un correo válido.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="telefono" class="form-label">Número de teléfono *</label>
-                                        <input type="tel" class="form-control" id="telefono" required>
+                                        <input type="tel" class="form-control" id="telefono" name="telefono" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="archivo" class="form-label">Adjuntar Archivo *</label>
-                                        <input type="file" class="form-control" id="archivo" required>
+                                        <label for="miArchivo" class="form-label">Adjuntar Archivo *</label>
+                                        <input type="file" class="form-control" id="miArchivo" name="miArchivo" required>
                                     </div>
                                     <div class="col-12">
                                         <label for="mensaje" class="form-label">Mensaje *</label>
-                                        <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                                        <textarea class="form-control" id="mensaje" rows="4" name="mensaje" required></textarea>
                                     </div>
                                     <div class="col-12 text-center mt-4">
                                         <button type="submit" class="btn btn-primary-custom btn-lg w-100"
@@ -638,6 +638,7 @@
             $('#contactForm').on('submit', function (e) {
                 e.preventDefault();
                 let valid = true;
+                console.log(data_utm);
 
                 // Limpiar errores previos
                 $('.form-control').removeClass('is-invalid');
@@ -651,20 +652,62 @@
                 });
 
                 // Validar email básico
-                const email = $('#email').val();
+                const email = $('#correo').val();
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
-                    $('#email').addClass('is-invalid');
+                    $('#correo').addClass('is-invalid');
                     valid = false;
                 }
 
                 if (valid) {
+
+                    var nombre = $("input[name='nombre']", this).val();
+                    var correo = $("input[name='correo']", this).val();
+                    var telefono = $("input[name='telefono']", this).val();
+                    var mensaje = $("textarea[name='mensaje']", this).val();
+
+                    var data = {};
+                    data.nombre = nombre;
+                    data.correo = correo;
+                    data.telefono = telefono;
+                    data.mensaje = mensaje;
+
+                    data.archivo_adjunto = base64Completo ? base64Completo : "";
+                    data.utm_id = data_utm.utm_id ? data_utm.utm_id : "";
+                    data.utm_campaign = data_utm.utm_campaign ? data_utm.utm_campaign : "";
+                    data.utm_source = data_utm.utm_source ? data_utm.utm_source : "";
+                    data.utm_medium = data_utm.utm_medium ? data_utm.utm_medium : "";
+                    data.utm_content = data_utm.utm_content ? data_utm.utm_content : "";
+                    data.utm_term = data_utm.utm_term ? data_utm.utm_term : "";
+
+                    data.api_key = "Q2xpZW50ZUlEOjo0MDc=";
+                    data.to = ["ventas@npdem.com", "leads@futurite.net"];
+                    data.origen = "npdem-inyeccion";
+
                     const btn = $('#btnSubmit');
                     const originalText = btn.text();
 
                     // Simulación de envío
                     btn.prop('disabled', true).text('Enviando...');
 
+                    $.ajax({
+                        method: "POST",
+                        url: "https://futurite.ongoing.mx/api/leads/add",
+                        data: data,
+                        error: function (e) {
+                            console.log(e);
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            if (result.success) {
+                                $('#contactForm').each(function () { this.reset(); });
+                                window.open('gracias.html', '_self');
+                            } else {
+                                alert('Ha ocurrido un error al enviar la forma de contacto, intenta más tarde');
+                            }
+                        }
+                    })
+                    
                     setTimeout(function () {
                         // Redirección
                         window.location.href = 'gracias-inyeccion.html';
@@ -673,6 +716,40 @@
             });
         });
 
+        /*manejo de UTM*/
+        var data_utm = {};
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // 1. Obtener los parámetros de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            // 2. Lista de UTMs a buscar
+            const utms = ['utm_id', 'utm_campaign', 'utm_source', 'utm_medium', 'utm_content', 'utm_term'];
+            // 3. Asignar cada UTM encontrada a su campo correspondiente
+            utms.forEach(param => {
+                const value = urlParams.get(param);
+                if (value) {
+                    data_utm [param] = value;
+                }
+            });
+            console.log(data_utm);
+        });
+
+        /*manejo de archivo*/
+        const input = document.getElementById('miArchivo');
+        var base64Completo = "";
+        input.addEventListener('change', (e) => {
+            const archivo_adjunto = e.target.files[0]; // Obtener el primer archivo seleccionado
+            if (!archivo_adjunto) return;
+            const lector = new FileReader();
+            // Evento que se dispara cuando el archivo se termina de leer
+            lector.onload = () => {
+                base64Completo = lector.result; // Esto incluye el prefijo (ej: data:image/png;base64,...)
+                console.log('Base64 completo:', base64Completo);
+            };
+            // Iniciar la lectura del archivo como DataURL (que es formato Base64)
+            lector.readAsDataURL(archivo_adjunto);
+        });
+
+        /*slider*/
         const swiper = new Swiper('.swiper-clientes', {
             slidesPerView: 2,
             spaceBetween: 30,
