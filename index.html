@@ -584,8 +584,8 @@
                     data.utm_content = data_utm.utm_content ? data_utm.utm_content : "";
                     data.utm_term = data_utm.utm_term ? data_utm.utm_term : "";
 
-                    data.api_key = "Q2xpZW50ZUlEOjoxMg==";
-                    data.to = ["ventas@npdem.com", "daniel.quiroga@futurite.com"];
+                    data.api_key = "Q2xpZW50ZUlEOjo0MDc=";
+                    data.to = ["ventas@npdem.com", "leads@futurite.net"];
                     data.origen = "npdem-inyeccion";
 
                     const btn = $('#btnSubmit');
@@ -596,7 +596,7 @@
 
                     $.ajax({
                         method: "POST",
-                        url: "https://ongoing.futurite.info/api/leads/add",
+                        url: "https://futurite.ongoing.mx/api/leads/add",
                         data: data,
                         error: function (e) {
                             console.log(e);
@@ -641,8 +641,8 @@
         const input = document.getElementById('miArchivo');
         var base64Completo = "";
         input.addEventListener('change', (e) => {
-            const archivo = e.target.files[0]; // Obtener el primer archivo seleccionado
-            if (!archivo) return;
+            const archivo_adjunto = e.target.files[0]; // Obtener el primer archivo seleccionado
+            if (!archivo_adjunto) return;
             const lector = new FileReader();
             // Evento que se dispara cuando el archivo se termina de leer
             lector.onload = () => {
@@ -650,7 +650,7 @@
                 console.log('Base64 completo:', base64Completo);
             };
             // Iniciar la lectura del archivo como DataURL (que es formato Base64)
-            lector.readAsDataURL(archivo);
+            lector.readAsDataURL(archivo_adjunto);
         });
 
         /*slider*/
