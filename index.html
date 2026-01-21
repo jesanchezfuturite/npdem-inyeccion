@@ -397,7 +397,7 @@
     <section id="profiles" class="section-padding bg-light-soft">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="text-primary-custom fw-bold">Nuestro Equipo</h2>
+                <h2 class="text-primary-custom fw-bold">Inyección Plástica</h2>
                 <div style="width: 50px; height: 3px; background: var(--accent-color); margin: 15px auto;"></div>
             </div>
             <div class="row g-4">
@@ -565,7 +565,8 @@
                 <div class="col-lg-8">
                     <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
                         <div class="card-body p-5">
-                            <h2 class="text-center mb-4" style="color: var(--primary-color);">Formulario de cotización
+                            <h2 class="text-center mb-4" style="color: var(--primary-color);">
+                                Cotiza tu proyecto
                             </h2>
                             <p class="text-center text-muted mb-4">Complete los datos y nos pondremos en contacto.</p>
 
@@ -585,12 +586,16 @@
                                         <input type="tel" class="form-control" id="telefono" name="telefono" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="miArchivo" class="form-label">Adjuntar Archivo *</label>
-                                        <input type="file" class="form-control" id="miArchivo" name="miArchivo" required>
+                                        <label for="empresa" class="form-label">Empresa *</label>
+                                        <input type="text" class="form-control" id="empresa" name="empresa" required>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="miArchivo" class="form-label">Adjuntar Archivo (DWG, STEP, STL, 3D) </label>
+                                        <input type="file" class="form-control" id="miArchivo" name="miArchivo">
                                     </div>
                                     <div class="col-12">
                                         <label for="mensaje" class="form-label">Mensaje *</label>
-                                        <textarea class="form-control" id="mensaje" rows="4" name="mensaje" required></textarea>
+                                        <textarea class="form-control" id="mensaje" rows="4" name="mensaje" placeholder="Compártenos la información de tu proyecto y nuestro equipo técnico evaluará tus requerimientos para ofrecerte una solución de inyección acorde a tus especificaciones." required></textarea>
                                     </div>
                                     <div class="col-12 text-center mt-4">
                                         <button type="submit" class="btn btn-primary-custom btn-lg w-100"
@@ -664,15 +669,22 @@
                     var nombre = $("input[name='nombre']", this).val();
                     var correo = $("input[name='correo']", this).val();
                     var telefono = $("input[name='telefono']", this).val();
+                    var empresa = $("input[name='empresa']", this).val();
                     var mensaje = $("textarea[name='mensaje']", this).val();
 
                     var data = {};
                     data.nombre = nombre;
                     data.correo = correo;
                     data.telefono = telefono;
+                    data.empresa = empresa;
                     data.mensaje = mensaje;
 
-                    data.archivo_adjunto = base64Completo ? base64Completo : "";
+                    if(base64Completo != "") {
+                        data.archivo_adjunto = {
+                            "contenido" : base64Completo,
+                            "nombre" : nombreArchivo
+                        } 
+                    }
                     data.utm_id = data_utm.utm_id ? data_utm.utm_id : "";
                     data.utm_campaign = data_utm.utm_campaign ? data_utm.utm_campaign : "";
                     data.utm_source = data_utm.utm_source ? data_utm.utm_source : "";
@@ -736,9 +748,13 @@
         /*manejo de archivo*/
         const input = document.getElementById('miArchivo');
         var base64Completo = "";
+        var nombreArchivo = ""; // Variable para almacenar el nombre
         input.addEventListener('change', (e) => {
             const archivo_adjunto = e.target.files[0]; // Obtener el primer archivo seleccionado
             if (!archivo_adjunto) return;
+             // Guardamos el nombre del archivo en la variable
+            nombreArchivo = archivo_adjunto.name;
+            console.log('Nombre del archivo:', nombreArchivo);
             const lector = new FileReader();
             // Evento que se dispara cuando el archivo se termina de leer
             lector.onload = () => {
