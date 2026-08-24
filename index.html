@@ -579,6 +579,22 @@
                                         <input type="text" class="form-control" id="empresa" name="empresa" required>
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="herramental" class="form-label">¿Cuentas con herramental para el proyecto? *</label>
+                                        <select class="form-control form-select" id="herramental" name="herramental" required>
+                                            <option value="" selected disabled>Selecciona una opción</option>
+                                            <option value="Sí">Sí</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="planos" class="form-label">¿Cuentas con planos o dibujos técnicos del proyecto? *</label>
+                                        <select class="form-control form-select" id="planos" name="planos" required>
+                                            <option value="" selected disabled>Selecciona una opción</option>
+                                            <option value="Sí">Sí</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="miArchivo" class="form-label">Adjuntar Archivo (DWG, STEP, STL, 3D, Imagen: PNG, JPG) </label>
                                         <input type="file" class="form-control" id="miArchivo" name="miArchivo">
                                     </div>
@@ -659,6 +675,8 @@
                     var correo = $("input[name='correo']", this).val();
                     var telefono = $("input[name='telefono']", this).val();
                     var empresa = $("input[name='empresa']", this).val();
+                    var herramental = $("select[name='herramental']", this).val();
+                    var planos = $("select[name='planos']", this).val();
                     var mensaje = $("textarea[name='mensaje']", this).val();
 
                     var data = {};
@@ -666,6 +684,8 @@
                     data.correo = correo;
                     data.telefono = telefono;
                     data.empresa = empresa;
+                    data.herramental = herramental;
+                    data.planos = planos;
                     data.mensaje = mensaje;
 
                     if(base64Completo != "") {
